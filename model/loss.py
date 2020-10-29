@@ -1,5 +1,5 @@
-import torch.nn.functional as F
+import torch.nn as nn
 
 
 def cross_entropy_loss(output, target):
-    return F.nn.CrossEntropyLoss(output, target)
+    return nn.CrossEntropyLoss(output, target)

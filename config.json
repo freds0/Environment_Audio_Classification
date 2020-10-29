@@ -36,14 +36,15 @@
         }
     },
     "trainer": {
-        "epochs": 100,
+        "epochs": 2,
 
-        "save_dir": "saved/",
+        "save_dir": "checkpoints/",
+        "log_dir": "logs/",
         "save_period": 1,
         "verbosity": 2,
         
         "monitor": "min val_loss",
-        "early_stop": 10,
+        "early_stop": 5,
 
         "tensorboard": true
     }

@@ -8,7 +8,7 @@ import model.metric as module_metric
 import model.model as module_arch
 from parse_config import ConfigParser
 from trainer import Trainer
-
+import torch.nn as nn
 from torch.utils.data import DataLoader
 
 # fix random seeds for reproducibility
@@ -19,7 +19,7 @@ torch.backends.cudnn.benchmark = False
 np.random.seed(SEED)
 
 def main(config):
-    logger = config.get_logger('train')
+    #logger = config.get_logger('train')
 
     train_filepath = 'dataset/ESC-50-master/train.csv'
     test_filepath = 'dataset/ESC-50-master/test.csv'
@@ -38,9 +38,10 @@ def main(config):
     # build model architecture, then print to console
     input_shape = (1, 128, 431)
     model = config.init_obj('arch', module_arch, input_shape)
-    logger.info(model)
+    #logger.info(model)
     # get function handles of loss and metrics
-    criterion = getattr(module_loss, config['loss'])
+    #criterion = getattr(module_loss, config['loss'])
+    criterion = nn.CrossEntropyLoss()
     metrics = [getattr(module_metric, met) for met in config['metrics']]
     # build optimizer, learning rate scheduler. delete every lines containing lr_scheduler for disabling scheduler
     trainable_params = filter(lambda p: p.requires_grad, model.parameters())
