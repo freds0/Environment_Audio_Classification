@@ -29,19 +29,13 @@ def main(config):
 
     train_loader = DataLoader(train_data, batch_size=1, shuffle=True)
     test_loader = DataLoader(test_data, batch_size=1, shuffle=True)
-
-    # setup data_loader instances
-    #data_loader = config.init_obj('ESC50DataLoader', module_data, *train_dataloader_args)
-
-    #valid_data_loader = data_loader.split_validation()
+    test_loader = DataLoader(test_data, batch_size=1, shuffle=True)
 
     # build model architecture, then print to console
     input_shape = (1, 128, 431)
     model = config.init_obj('arch', module_arch, input_shape)
-    #logger.info(model)
     # get function handles of loss and metrics
-    #criterion = getattr(module_loss, config['loss'])
-    criterion = nn.CrossEntropyLoss()
+    criterion = getattr(module_loss, config['loss'])
     metrics = [getattr(module_metric, met) for met in config['metrics']]
     # build optimizer, learning rate scheduler. delete every lines containing lr_scheduler for disabling scheduler
     trainable_params = filter(lambda p: p.requires_grad, model.parameters())
