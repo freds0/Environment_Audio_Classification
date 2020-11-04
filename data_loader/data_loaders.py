@@ -1,6 +1,3 @@
-#sfrom torchvision import datasets, transforms
-from base import BaseDataLoader
-
 from torch.utils.data import Dataset
 import pandas as pd
 import numpy as np

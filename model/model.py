@@ -1,8 +1,5 @@
 import torch.nn as nn
 import torch.nn.functional as F
-from base import BaseModel
-import torch.nn as nn
-import torch.nn.functional as F
 
 class ConvModel(nn.Module):
     def __init__(self, input_shape, batch_size=16, num_cats=50):
@@ -52,3 +49,45 @@ class ConvModel(nn.Module):
         x = self.dropout(x)
         x = self.dense2(x)
         return x
+
+
+
+class PiczakModel(nn.Module):
+    '''Source: https://www.karolpiczak.com/papers/Piczak2015-ESC-ConvNet.pdf '''
+    def __init__(self, input_shape, batch_size=16, num_cats=50):
+        super().__init__()
+        self.conv1 = nn.Conv2d(1, 80, kernel_size = (57, 6), stride=1, padding=0)
+        self.bn1 = nn.BatchNorm2d(80)
+        #self.maxpool1 = nn.MaxPool2d(kernel_size=3, stride=3, padding=1)
+        self.conv2 = nn.Conv2d(80, 80, kernel_size = (1, 3), stride=1, padding=0)
+        self.bn2 = nn.BatchNorm2d(80)  
+        n1 = (input_shape[1]-57)+1        
+        n3 = ((n1 -4) / 1) + 1
+        
+        n2 = (input_shape[2]-6)+1        
+        n4 = int((n2 -3) / 3) + 1
+        
+        n5 = ((n3-1) / 1) + 1
+        n7 = ((n5 - 1) / 1) + 1        
+        
+        n6 = ((n4 - 3) / 1) + 1
+        n8 = int((n6 -3) / 3) + 1
+        n = int(n8 * n7 * 80)
+        self.dense1 = nn.Linear(n, 500)
+        self.dense2 = nn.Linear(500, num_cats)
+
+    def forward(self, x):
+        x = self.conv1(x)
+        x = F.relu(self.bn1(x))
+        x = F.max_pool2d(x, kernel_size=(4, 3), stride= (1,3))
+        x = F.dropout(x, p=0.5)
+        x = self.conv2(x)
+        x = F.relu(self.bn2(x))
+        x = F.max_pool2d(x, kernel_size=(1, 3), stride= (1,3))  
+        x = x.view(x.size(0),-1)
+        x = self.dense1(x)
+        x = F.dropout(x, p=0.5)
+        x = self.dense2(x)
+        x = F.dropout(x, p=0.5)
+        return x
+

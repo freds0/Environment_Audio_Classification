@@ -27,9 +27,8 @@ def main(config):
     train_data = module_data.ESC50DataLoader('dataset/ESC-50-master/audio/', train_filepath, 'filename', 'category')
     test_data = module_data.ESC50DataLoader('dataset/ESC-50-master/audio/', test_filepath, 'filename', 'category')
 
-    train_loader = DataLoader(train_data, batch_size=1, shuffle=True)
-    test_loader = DataLoader(test_data, batch_size=1, shuffle=True)
-    test_loader = DataLoader(test_data, batch_size=1, shuffle=True)
+    train_loader = DataLoader(train_data, batch_size=config['data_loader']['args']['batch_size'], shuffle=True)
+    test_loader = DataLoader(test_data, batch_size=2, shuffle=True)
 
     # build model architecture, then print to console
     input_shape = (1, 128, 431)

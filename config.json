@@ -3,14 +3,14 @@
     "n_gpu": 1,
 
     "arch": {
-        "type": "ConvModel",
+        "type": "PiczakModel",
         "args": {}
     },
     "data_loader": {
         "type": "MnistDataLoader",
         "args":{
             "data_dir": "dataset/ESC-50-master/train.csv",
-            "batch_size": 1,
+            "batch_size": 28,
             "shuffle": true,
             "validation_split": 0.1,
             "num_workers": 2
