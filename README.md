@@ -1,13 +1,5 @@
 # Environment Audio Classification
 
-Original paper:
-
-https://www.karolpiczak.com/papers/Piczak2015-ESC-Dataset.pdf
-
-Download Available at:
-
-https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/YDEPUT
-
 
 # Configuration
 
@@ -52,6 +44,14 @@ The dataset consists of 5-second-long recordings organized into 50 semantical cl
 Each sound is 5 second long, this project change it to 10 second long i.e. double the duration of each sound.
 Please go to this link for more details from here:
 https://github.com/karoldvl/ESC-50 
+
+Original paper:
+
+https://www.karolpiczak.com/papers/Piczak2015-ESC-Dataset.pdf
+
+Download Available at:
+
+https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/YDEPUT
 
 Or execute de script on dataset folder:
 
